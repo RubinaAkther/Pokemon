@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/Pokemon">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
