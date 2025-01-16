@@ -10,6 +10,7 @@ const Navbar = () => {
         <div className="navbar-links">
           <NavLink
             to="/"
+            end
             className={({ isActive }) => (isActive ? 'active-link' : 'link')}
           >
             Home

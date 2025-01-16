@@ -11,25 +11,33 @@ const Home = () => {
   const [types, setTypes] = useState([]);
   const [selectedType, setSelectedType] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=200')
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=50')
       .then((res) => res.json())
       .then((data) => {
         const pokemonUrls = data.results.map((pokemon) => pokemon.url);
         Promise.all(
           pokemonUrls.map((url) => fetch(url).then((res) => res.json()))
-        ).then((pokemons) => {
-          const typesSet = new Set();
-          pokemons.forEach((pokemon) => {
-            pokemon.types.forEach((type) => {
-              typesSet.add(type.type.name);
+        )
+          .then((pokemons) => {
+            const typesSet = new Set();
+            pokemons.forEach((pokemon) => {
+              pokemon.types.forEach((type) => {
+                typesSet.add(type.type.name);
+              });
             });
+            setTypes([...typesSet]);
+            setPokemonList(pokemons);
+            setFilteredPokemonList(pokemons);
+            setLoading(false);
+          })
+          .catch((err) => {
+            setError('Failed to fetch Pokémon data.');
+            setLoading(false);
           });
-          setTypes([...typesSet]);
-          setPokemonList(pokemons);
-          setFilteredPokemonList(pokemons);
-        });
       });
   }, []);
 
@@ -64,6 +72,9 @@ const Home = () => {
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
+
+  if (loading) return <div className="loading">Loading Pokémon...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="home-container">
