@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --primary-color: #021526;
+  --secondary-color: #ffffff;
+  --background-color: #021526;
+  --card-bg: #03346e;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --transition-speed: 0.3s;
+  --primary-font: 'Montserrat', serif;
+  --secondary-font: 'Black Ops One', serif;
+}
+
+body {
+  font-family: var(--primary-font);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+}
